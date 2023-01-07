@@ -155,7 +155,8 @@ int main (){ //é o núcleo do nosso projeto / o parenteses mostra que é uma funçã
 		printf("Escolha a opção desejada no menu: \n\n"); //inicio do menu
 		printf("\t1 - Registrar Nomes\n");
 		printf("\t2 - Consultar Nomes\n");
-		printf("\t3 - Deletar Nomes\n\n");
+		printf("\t3 - Deletar Nomes\n");
+		printf("\n\t4 - Sair\n\n");
 		printf("Opção: "); //fim do menu
 		
 		scanf("%d", &opcao); //armazenando a escolha do usuário
@@ -174,6 +175,11 @@ int main (){ //é o núcleo do nosso projeto / o parenteses mostra que é uma funçã
 				
 			case 3:
 				deletar(); //chamar função
+				break;
+				
+			case 4:
+				printf("Obrigado por utilizar o sistema.\n");
+				return 0;
 				break;
 				
 			default:
