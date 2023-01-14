@@ -3,7 +3,8 @@
 #include <locale.h> //biblioteca de alocação de texto por regiao
 #include <string.h> //biblioteca responsavel pelas strings
 
-int registrar(){ //função de registrar
+int registrar()
+{ //função de registrar
 	
 	//inicio variaveis/strings
 	char arquivo[40];
@@ -62,7 +63,8 @@ int registrar(){ //função de registrar
 	
 }
 
-int consultar(){ //função de consultar
+int consultar()
+{ //função de consultar
 	
 	setlocale(LC_ALL, "Portuguese");
 	
@@ -77,13 +79,15 @@ int consultar(){ //função de consultar
 	FILE *file;
 	file = fopen(cpf,"r");
 	
-	if(file == NULL){
+	if(file == NULL)
+	{
 		printf("Arquivo não localizado!\n");
 	}
 	
 	printf("Essas são as informações do usuário: \n");
 	
-	while(fgets(conteudo, 200, file) != NULL){
+	while(fgets(conteudo, 200, file) != NULL)
+	{
 		printf("%s", conteudo);
 	}
 	
@@ -92,7 +96,8 @@ int consultar(){ //função de consultar
 	
 }
 
-int deletar(){ //função de deletar
+int deletar()
+{ //função de deletar
 	
 	char cpf[40];
 	int confirma=0;
@@ -103,25 +108,25 @@ int deletar(){ //função de deletar
 	FILE *file;
 	file = fopen(cpf, "r");
 		
-	if(file == NULL){
+	if(file == NULL)
+	{
 		printf("Arquivo não encontrado. Tente novamente. \n");
 		system("pause");
-	}
-	
-	else{
+	}else
+	{
 		printf("Tem certeza? digite [1] para confirmar ou [2] para cancelar: ");
 		scanf("%d", &confirma);
-		
-		switch(confirma){
-		
+		switch(confirma)
+		{
 			case 1:
 				remove(cpf);
 			
 				FILE *file;
 				file = fopen(cpf, "r");
 			
-				if(file == NULL){
-					printf("Arquivo deletado com sucesso! \n");
+				if(file == NULL)
+				{
+					printf("Arquivo DELETADO com sucesso! \n");
 					system("pause");
 				}
 			break;
@@ -129,63 +134,90 @@ int deletar(){ //função de deletar
 			case 2:
 				printf("Operação CANCELADA pelo usuário!\n");
 				system("pause");
-				break;
+			break;
 				
 			default:
 				printf("Essa opção não esta disponível. \n");
 				system("pause");
-				break;
+			break;
 		}
 	}
 }
 
-int main (){ //é o núcleo do nosso projeto / o parenteses mostra que é uma função
- 
-	int opcao=0; //Definindo variáveis
+int main ()
+{ //é o núcleo do nosso projeto / o parenteses mostra que é uma função
+ 	setlocale(LC_ALL, "Portuguese"); //Definindo o idioma	
+	
+	#define usuario "admin"
+	#define senha "admin"
+	
+	int opcao = 0; //Definindo variáveis
 	int x=1;
+	char nomeUsuario[10], senhaUsuario[10];
+	int valido = 0;
 	
-	setlocale(LC_ALL, "Portuguese"); //Definindo o idioma
+	printf("### Cartório da EBAC ###\n");
+	printf("-------Bem Vindo--------\n");
 	
-	for(x=1; x=1;){
+	do
+	{
+		printf("Usuário: ");
+		scanf("%s", &nomeUsuario);
+		printf("Senha: ");
+		scanf("%s", &senhaUsuario);
 		
-		system("cls"); // limpar tela
+		valido = strcmp(nomeUsuario, usuario) == 0 && strcmp(senhaUsuario, senha) == 0; //strcmp -> compara strings; comparando com usuario e senha predefinidos
+		
+		if(!valido)
+		{
+			printf("\nUsuário ou senha incorreto, tente novamente!\n\n");
+		}
+		
+	} while (!valido);
 	
-		printf("\n### Cartório da EBAC ### \n\n");
-		
-		printf("Escolha a opção desejada no menu: \n\n"); //inicio do menu
-		printf("\t1 - Registrar Nomes\n");
-		printf("\t2 - Consultar Nomes\n");
-		printf("\t3 - Deletar Nomes\n");
-		printf("\n\t4 - Sair\n\n");
-		printf("Opção: "); //fim do menu
-		
-		scanf("%d", &opcao); //armazenando a escolha do usuário
-		
-		system("cls"); // limpar tela
-		
-		switch(opcao){
+	printf("\n-----Acesso Permitido-----\n");
+	system("pause");
+	
+	if(valido = 1)
+	{
+		for(x=1; x=1;)
+		{
+			system("cls"); // limpar tela
+			printf("### Cartório da EBAC ### \n\n");
+			printf("Escolha a opção desejada no menu: \n\n"); //inicio do menu
+			printf("\t1 - Registrar Nomes\n");
+			printf("\t2 - Consultar Nomes\n");
+			printf("\t3 - Deletar Nomes\n");
+			printf("\n\t4 - Sair\n\n");
+			printf("Opção: "); //fim do menu
 			
-			case 1:
-				registrar(); //chamar função
-				break;
+			scanf("%d", &opcao); //armazenando a escolha do usuário
+			system("cls"); // limpar tela
 			
-			case 2:
-				consultar(); //chamar função
-				break;
+			switch(opcao)
+			{
+				case 1:
+					registrar(); //chamar função
+					break;
 				
-			case 3:
-				deletar(); //chamar função
-				break;
-				
-			case 4:
-				printf("Obrigado por utilizar o sistema.\n");
-				return 0;
-				break;
-				
-			default:
-				printf("Essa opção não esta disponível. \n\n");
-				system("pause");
-				break;
+				case 2:
+					consultar(); //chamar função
+					break;
+					
+				case 3:
+					deletar(); //chamar função
+					break;
+					
+				case 4:
+					printf("Obrigado por utilizar o sistema.\n");
+					return 0;
+					break;
+					
+				default:
+					printf("Essa opção não esta disponível. \n\n");
+					system("pause");
+					break;
+			}
 		}
 	}
 }
