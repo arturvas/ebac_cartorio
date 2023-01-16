@@ -65,7 +65,6 @@ int registrar()
 
 int consultar()
 { //função de consultar
-	
 	setlocale(LC_ALL, "Portuguese");
 	
 	char cpf[40];
@@ -73,7 +72,6 @@ int consultar()
 	
 	printf("Digite o CPF a ser consultado: ");
 	scanf("%s",cpf);
-	
 	system("cls"); //limpar tela 
 	
 	FILE *file;
@@ -82,66 +80,45 @@ int consultar()
 	if(file == NULL)
 	{
 		printf("Arquivo não localizado!\n");
-	}
-	
-	printf("Essas são as informações do usuário: \n");
-	
-	while(fgets(conteudo, 200, file) != NULL)
+	}else
 	{
-		printf("%s", conteudo);
+		printf("Essas são as informações do usuário: \n");
+		while(fgets(conteudo, 200, file) != NULL)
+		{
+			printf("%s", conteudo);
+		}	
 	}
-	
 	printf("\n\n");
 	system("pause"); 
-	
 }
 
 int deletar()
 { //função de deletar
 	
 	char cpf[40];
-	int confirma=0;
-	
+	int confirma;
+
 	printf("Digite o CPF do usuário a ser DELETADO: ");
 	scanf("%s", cpf); //%s -> receber string
 	
-	FILE *file;
-	file = fopen(cpf, "r");
-		
-	if(file == NULL)
+	printf("Tem certeza? \n [1] para confirmar \n [2] para cancelar\nDigite: ");
+	scanf("%d", &confirma);
+	
+	if(confirma == 1)
 	{
-		printf("Arquivo não encontrado. Tente novamente. \n");
-		system("pause");
+		remove(cpf);
+		FILE *file;
+		file = fopen(cpf, "r");
+		
+		if(file == NULL)
+		{
+			printf("Arquivo deletado com sucesso! \n", cpf);
+		}
 	}else
 	{
-		printf("Tem certeza? digite [1] para confirmar ou [2] para cancelar: ");
-		scanf("%d", &confirma);
-		switch(confirma)
-		{
-			case 1:
-				remove(cpf);
-			
-				FILE *file;
-				file = fopen(cpf, "r");
-			
-				if(file == NULL)
-				{
-					printf("Arquivo DELETADO com sucesso! \n");
-					system("pause");
-				}
-			break;
-		
-			case 2:
-				printf("Operação CANCELADA pelo usuário!\n");
-				system("pause");
-			break;
-				
-			default:
-				printf("Essa opção não esta disponível. \n");
-				system("pause");
-			break;
-		}
+		printf("Comando cancelado! \n");
 	}
+	system("pause");
 }
 
 int main ()
@@ -175,7 +152,7 @@ int main ()
 		
 	} while (!valido);
 	
-	printf("\n-----Acesso Permitido-----\n");
+	printf("\n----Acesso Permitido----\n\n");
 	system("pause");
 	
 	if(valido = 1)
@@ -198,27 +175,25 @@ int main ()
 			{
 				case 1:
 					registrar(); //chamar função
-					break;
+				break;
 				
 				case 2:
 					consultar(); //chamar função
-					break;
+				break;
 					
 				case 3:
 					deletar(); //chamar função
-					break;
+				break;
 					
 				case 4:
-					printf("Obrigado por utilizar o sistema.\n");
 					return 0;
-					break;
+				break;
 					
 				default:
 					printf("Essa opção não esta disponível. \n\n");
 					system("pause");
-					break;
+				break;
 			}
 		}
 	}
 }
-
