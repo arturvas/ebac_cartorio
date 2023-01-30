@@ -109,7 +109,7 @@ int deletar()
 		remove(cpf);
 		FILE *file;
 		file = fopen(cpf, "r");
-		
+		fclose(file);	
 		if(file == NULL)
 		{
 			printf("Arquivo deletado com sucesso! \n", cpf);
